@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="UTF-8">
+   <title>website</title>
+   <link rel="stylesheet" href="style.css">
+   <script>
+      function verifier() {
+			var nom = document.getElementById("nom").value;
+			var prenom = document.getElementById("prenom").value;
+			var age = document.getElementById("age").value;
+         var telephone = document.getElementById("telephone").value;
+			var email = document.getElementById("email").value;
+         
+    // Fonction pour vérifier si la saisie est une chaîne de caractères ou non
+    function VerifNom(nom) {
+      if (nom === '') {
+        return false;
+      } else {
+        // Boucle sur chaque caractère de la chaîne d'entrée
+        for (var i = 0; i < nom.length; i++) {
+          var charCode = nom.charCodeAt(i);
+          // Vérifie si le caractère est un caractère alphabétique ou un espace
+          if ((charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122) && charCode !== 32) {
+            return false;
+          }
+        }
+      }
+      // Si l'entrée passe tous les tests, retourne true
+      return true;
+    }
+
+
+// Fonction pour vérifier si la saisie est une chaîne de caractères ou non
+function VerifPrenom(prenom) {
+  if (prenom === '') {
+    return false;
+  } else {
+    // Boucle sur chaque caractère de la chaîne d'entrée
+    for (var i = 0; i < prenom.length; i++) {
+      var charCode = prenom.charCodeAt(i);
+      // Vérifie si le caractère est un caractère alphabétique ou un espace
+      if ((charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122) && charCode !== 32) {
+        return false;
+      }
+    }
+  }
+  // Si l'entrée passe tous les tests, retourne true
+  return true;
+}
+
+function VerifTelephone(telephone){
+   if (telephone === '') {
+      return false;
+    }
+    if(telephone.length > 9){
+      return false;
+    }
+    for (let i=0; i < telephone.length; i++) {
+      if (telephone[i] < '0' || telephone[i] > '9') { // Check if each character is a digit
+        return false;
+      }
+   }
+      return true;
+
+
+}
+
+// Fonction pour vérifier si la saisie est un email ou non
+			function VerifEmail(email) {
+  let a = email.indexOf("@");
+  let b = email.lastIndexOf(".");
+  let x = email.slice(0, a);
+  let y = email.slice(a + 1, b);
+  let z = email.slice(b + 1);
+  if (a === -1 || b === -1 || !VerifNom(x) || !VerifNom(y) || !VerifNom(z) || (z.length !== 2 && z.length !== 3) || b <= a) {
+    return false;
+  } else {
+    return true;
+  }
+
+}
+// Fonction pour vérifier si la saisie est un nombre ou non
+function VerifAge(age) {
+  if (age === '') {
+    return false;
+  }
+  let i = 0;
+  while (age[i] === '0') { // Ignore leading zeros
+    i++;
+  }
+  if (i === age.length) { // Check if age is zero
+    return true;
+  }
+  for ( let i=0 ; i < age.length; i++) {
+    if (age[i] < '0' || age[i] > '9') { // Check if each character is a digit
+      return false;
+    }
+  }
+  
+
+  return true;
+}
+
+
+
+
+			
+
+			
+//L'affichage des messages s'il s'agit d'une erreur ou si les données ne sont pas correctes.
+			if (!VerifNom(nom) ) {
+				document.getElementById("nom_erreur").innerHTML = "Le nom doit être une chaîne de caractères";
+				erreur = true;
+			} else {
+				document.getElementById("nom_erreur").innerHTML = "";
+			}
+
+			if (!VerifPrenom(prenom)) {
+				document.getElementById("prenom_erreur").innerHTML = "Le prénom doit être une chaîne de caractères";
+				erreur = true;
+			} else {
+				document.getElementById("prenom_erreur").innerHTML = "";
+			}
+
+         if (!VerifTelephone(telephone)) {
+				document.getElementById("telephone_erreur").innerHTML = "Le nemuro de telephone doit être composé de chiffres et doit être de 9 chiffre ";
+				erreur = true;
+			} else {
+				document.getElementById("telephone_erreur").innerHTML = "";
+			}
+
+
+			if (!VerifAge(age)) {
+				document.getElementById("age_erreur").innerHTML = "L'âge doit être composé de chiffres et doit être inférieur à 100";
+				erreur = true;
+			} else {
+				document.getElementById("age_erreur").innerHTML = "";
+			}
+
+			if (!VerifEmail(email)) {
+				document.getElementById("email_erreur").innerHTML = "L'adresse email doit être valide";
+				erreur = true;
+			} else {
+				document.getElementById("email_erreur").innerHTML = "";
+			}
+      }
+
+			
+
+   </script>
+</head>
+<body>
+   <div class="wrapper">
+      <h2 style="color:black">Login</h2>
+      <form action="#">
+         <div class="input-box">
+            <input type="text"   id="nom" required/>
+            <label>Nom</label>
+         </div>
+         <div id="nom_erreur"></div><br>
+         <div class="input-box">
+            <input type="text" id="prenom"  required/>
+            <label>Prénom</label>
+         </div>
+         <div id="prenom_erreur"></div><br>
+         <div class="input-box">
+            <input id="telephone" type="tel"  required />
+            <label>téléphone</label>
+         </div>
+         <div id="telephone_erreur"></div><br>
+         <div class="input-box">
+            <input type="text" id="age" required />
+            <label>âge</label>
+         </div>
+         <div id="age_erreur"></div><br>
+         <div class="input-box">
+            <input id="email" type="text"  required />
+            <label>Email</label>
+         </div>
+         <div id="email_erreur"></div><br>
+         <button type="submit" class="btn" onclick="verifier()">click here</button>
+      </form>
+      
+   </div>
+   </body>
+
